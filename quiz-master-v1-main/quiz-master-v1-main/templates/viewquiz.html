@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block title %}
+    View Quiz
+{% endblock %}
+{% block content %}
+<div class="div">
+    <div class="viewquiz">
+        <div class="q_info">
+        <div class="mb-3">
+            <h2 class="cardheading">Viewing the quiz</h2>
+        </div>      
+        <hr>  
+        <div class="mb-1">
+            <label class="form-label" for="id">ID </label>
+            <input type="text"class="form-control" id="id" name="id" value="{{quiz.id}}" readonly>
+        </div>
+        <div class="mb-1">
+            <label class="form-label" for="chapter">Chapter </label>
+            <input type="text"class="form-control" id="chapter" name="chapter" value="{{quiz.chapter.name}}" readonly>
+        </div>
+        <div class="mb-1">
+            <label class="form-label" for="subject">Subject </label>
+            <input type="text"class="form-control" id="subject" name="subject" value="{{quiz.chapter.subject.name}}" readonly>
+        </div>
+        <div class="mb-1">
+            <label class="form-label" for="subject">No of Question </label>
+            <input type="text"class="form-control" id="no_Q" name="no_Q" value="{{quiz.chapter.questions|length}}" readonly>
+        </div>
+        <div class="mb-1">
+            <label class="form-label" for="subject"> Total score </label>
+            <input type="text"class="form-control" id="no_Q" name="no_Q" value="{{quiz.chapter.questions|sum(attribute='point')}}" readonly>
+        </div>
+        <div class="mb-1">
+            <label class="form-label" for="date">Date </label>
+            <input type="text"class="form-control" id="date" name="date" value="{{quiz.date}}" readonly>
+        </div>
+        <div class="mb-1">
+            <label class="form-label" for="duration">Duration </label>
+            <input type="text"class="form-control" id="duration" name="duration" value="{{quiz.duration}}" readonly>
+        </div>
+        <div class="button">
+            <a href="{{ url_for('user') }}" class="btn btn-outline-danger">Close</a>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
+{% block style %}
+<style>
+    .div{
+        width:100%;
+        display:flex;
+        justify-content: center;
+        padding :30px;
+    }
+
+    .viewquiz {
+        background-color: rgb(117, 174, 227);
+        border-radius: 25px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 40%;
+        margin: auto;
+        padding:15px;
+        border: 1px solid;
+    }
+
+    .q_info{
+        background:  rgb(117, 174, 227);
+        padding:20px;
+        border-radius:20px;
+    }
+    .cardheading {
+        text-align: center;
+    }
+</style>
+{% endblock  %}
+

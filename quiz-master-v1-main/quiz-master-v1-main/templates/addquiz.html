@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block title %}
+    Add Quiz
+{% endblock %}
+{% block content %}
+    <div class="title">
+        <h2>Add Quiz</h2>
+    </div>
+    <form class="form" method="post">
+        <label for="chapter" class="form-label">Chapter:
+            <select name="chapter" id="chapter" class="form-select" required >
+                {% for chapter in chapters %}
+                    {%if chapter.id == chapter_id %}
+                        <option value="{{chapter.id}}" selected >{{chapter.name}}</option>
+                    {% else %}
+                    <option value="{{chapter.id}}">{{chapter.name}}</option>
+                    {% endif %}
+                {% endfor  %}
+            </select>
+        </label>
+        <div>
+            <label for="date" class="form-label">Date:
+                <input type="date" name="date"  id="date" class="form-control" required />
+            </label>
+        </div>
+        <div>
+            <label for="duration" class="form-label">Duration</label>
+            <input type="time" class="form-control" id="duration" name="duration" value="00:00">
+        </div>
+        <div class="mt-2">
+            <button type="submit" class="btn btn-primary">Add Quiz</button>
+            <a href="{{ url_for('quiz') }}" class="btn btn-outline-danger">Close</a>
+        </div>
+    </form>
+{% endblock  %}
+{% block style  %}
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            alignitems: center;
+            width: 40%;
+            margin: auto;
+        }
+        .title{
+            display: flex;
+            justify-content:center;
+        }
+    </style>
+{% endblock  %}
+

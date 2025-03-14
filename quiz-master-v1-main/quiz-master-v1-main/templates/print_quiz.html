@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+{% block title %}
+    Print QUIZ
+{% endblock %}
+{% block content %}
+
+        <div class="quiz">
+            <div class="header">
+                <div class="chapter">
+                    <h3>{{quiz.chapter.name}}</h3>
+                    <h5>No. of Question:{{quiz.chapter.questions|length}}</h5>
+                </div>
+                <div>
+                    <div class="time">
+                        <h4>Duration     |</h4><h4 class="timer"id="timer"> {{quiz.duration}}</h4>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-lg" onclick="window.print()">
+                            <i class="fas fa-print  "></i>
+                            Print
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="questions">
+                <form  action="{{ url_for('submission', id=quiz.id)}}" method="post">
+                    <ol>
+                        {% for question in quiz.chapter.questions %}
+                        <li>
+                            <div class="satement">
+                                <h5> {{question.question}}</h5>
+                                <h6>{{question.point}} Point</h6>
+                            </div>  
+                            <div class="options">
+                                <div class="option">
+                                    <input type="radio" name="question{{question.id}}" id="option1" value="option1" disabled>
+                                    <label for="option1">{{question.option1}}</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="question{{question.id}}" id="option2" value="option2" disabled>
+                                    <label for="option2">{{question.option2}}</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="question{{question.id}}" id="option3" value="option3" disabled>
+                                    <label for="option3">{{question.option3}}</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" name="question{{question.id}}" id="option4" value="option4" disabled>
+                                    <label for="option4">{{question.option4}}</label>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %} 
+                    </ol> 
+                </form>
+            </div>
+        </div>
+{% endblock  %}
+{% block style %}
+<style>
+    body{
+        background-color:white;
+    }
+    .time{
+        display:flex;
+    }
+
+    .timer{
+        display:flex;
+    }
+
+    .header{
+        display:flex;
+        justify-content: space-between;
+        background:  rgb(199, 240, 255);
+        padding: 15px 30px 15px 30px;
+        margin: 0px 10px 0px 10px;
+        border-radius:10px;
+        
+    }
+    .quiz {
+        background:rgb(166, 211, 231);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 0px;
+        padding: 10px;
+        border-radius: 1rem;
+        
+    }
+    .questions{
+        padding:10px;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        background-color:white;
+        border-radius:10px;
+        margin:10px;
+        padding:20px;
+        
+    .satement{
+        display:flex;
+        justify-content:space-between;
+        margin:5px;
+    }
+    }
+    .heading {
+        display:flex;
+        flexdirection:row;
+        text-align: center;
+        padding-left:1rem;
+    }
+    .questions {
+    }
+    .options {
+        margin-top: 10px;
+    }
+    .option {
+        margin-top: 10px;
+    }
+    .btn-submit{
+        text-align:left;
+        margin:40px;
+
+    }
+</style>
+{% endblock  %}

@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block title %}
+    Edit Account
+{% endblock %}
+{% block content %}
+<div class="div">
+    <div class="viewquiz">
+        <div class="q_info">
+        <div class="mb-3">
+            <h2 class="cardheading">Edit Account Details</h2>
+        </div>      
+        <hr>  
+            <form class="form" method="post">
+                <div class="mb-2">
+                    <label class="form-label" for="username">Username </label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{user.username}}" required >
+                </div>
+                <div class="mb-2">
+                    <label class="form-label" for="fullname">Fullname </label>
+                    <input type="text" class="form-control" id="fullname" name="fullname" value="{{user.fullname}}" required >
+                </div>
+                <div class="mb-2">
+                    <label class="form-label" for="qualification">Qualification </label>
+                    <input type="text" class="form-control" id="qualification" name="qualification" value="{{user.qualification}}" required >
+                </div>
+                <div class="mb-2">
+                    <label class="form-label" for="dob">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob" name="dob" value="{{user.dob}}" required >
+                </div>
+                <small>**Fill in password details only if you want to change the password**</small>
+                <div class="mb-2">
+                    <label for="password" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="password" name="password" >
+                </div>
+                <div class="mb-2">
+                    <label for="npassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="npassword" name="npassword" >
+                </div>
+                <div class="btn">
+                        <button type="submit" class="btn btn-success"><i class="bi bi-save"> </i> Save Changes</button>
+                        <a href="{{ url_for('account') }}" class="btn btn-danger ms-1"> Close</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
+{% block style %}
+<style>
+    .div{
+        width:100%;
+        display:flex;
+        justify-content: center;
+        padding :30px;
+    }
+
+    .viewquiz {
+        background-color: rgb(117, 174, 227);
+        border-radius: 25px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 40%;
+        margin: auto;
+        padding:15px;
+        border: 1px solid;
+    }
+
+    .q_info{
+        background:  rgb(117, 174, 227);
+        padding:20px;
+        border-radius:20px;
+    }
+    .cardheading {
+        text-align: center;
+    }
+
+    .btn{
+        display: flex;
+    }
+    </style>
+{% endblock  %}
+
+

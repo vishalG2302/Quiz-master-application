@@ -1,0 +1,165 @@
+{% extends "layout.html" %}
+{% block title %}
+    QUIZ
+{% endblock %}
+{% block content %}
+    
+            <div class="quiz">
+                <div class="header">
+                    <div class="chapter">
+                        <h3>{{quiz.chapter.name}}</h3>
+                        <h5>No. of Question:{{quiz.chapter.questions|length}}</h5>
+                    </div>
+                    <div>
+                        <div class="time">
+                            <h4>Time remaning        |</h4><h4 class="timer"id="timer"></h4>
+                        </div>
+                        <div>
+                            <h5> Total score: {{quiz.chapter.questions|sum(attribute='point')}}</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="questions">
+                    <form  action="{{ url_for('submission', id=quiz.id)}}" method="post">
+                        <ol>
+                            {% for question in quiz.chapter.questions %}
+                            <li>
+                                <div class="satement">
+                                    <h5> {{question.question}}</h5>
+                                    <h6>{{question.point}} Point</h6>
+                                </div>  
+                                <div class="options">
+                                    <div class="option">
+                                        <input type="radio" name="question{{question.id}}" id="option1" value="option1">
+                                        <label for="option1">{{question.option1}}</label>
+                                    </div>
+                                    <div class="option">
+                                        <input type="radio" name="question{{question.id}}" id="option2" value="option2">
+                                        <label for="option2">{{question.option2}}</label>
+                                    </div>
+                                    <div class="option">
+                                        <input type="radio" name="question{{question.id}}" id="option3" value="option3">
+                                        <label for="option3">{{question.option3}}</label>
+                                    </div>
+                                    <div class="option">
+                                        <input type="radio" name="question{{question.id}}" id="option4" value="option4">
+                                        <label for="option4">{{question.option4}}</label>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %} 
+                        </ol>   
+                        <div class="btn-submit">
+                            <button type="submit" class="btn btn-success">Submit</button>   
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+{% endblock  %}
+{% block script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let duration = "{{ quiz.duration }}";
+            let parts = duration.split(':');
+            let timer = (+parts[0]) * 60 * 60 + (+parts[1]) * 60 + (+parts[2]);
+            let display = document.createElement('div');
+            display.id = 'timer';
+            document.querySelector('.timer').prepend(display);
+
+            function startTimer(duration, display) {
+                let timer = duration, hours, minutes, seconds;
+                setInterval(function () {
+                    hours = parseInt(timer / 3600, 10);
+                    minutes = parseInt((timer % 3600) / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+
+                    hours = hours < 10 ? "0" + hours : hours;
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    display.textContent = hours + ":" + minutes + ":" + seconds;
+
+                    if (--timer < 0) {
+                        timer = 0;
+                        alert("Time's up!");
+                        document.querySelector('form').submit();
+                    }
+                }, 1000);
+            }
+
+            startTimer(timer, display);
+        });
+    </script>
+{% endblock  %}
+{% block style %}
+<style>
+    body{
+        background-color:white;
+        padding: 2rem;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    .time{
+        display:flex;
+    }
+
+    .timer{
+        display:flex;
+    }
+
+    .header{
+        display:flex;
+        justify-content: space-between;
+        background:  rgb(199, 240, 255);
+        padding: 15px 30px 15px 30px;
+        margin: 0px 10px 0px 10px;
+        border-radius:10px;
+        
+    }
+    .quiz {
+        background:rgb(166, 211, 231);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 0px;
+        padding: 10px;
+        border-radius: 1rem;
+        
+    }
+    .questions{
+        padding:10px;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        background-color:white;
+        border-radius:10px;
+        margin:10px;
+        padding:20px;
+        
+    .satement{
+        display:flex;
+        justify-content:space-between;
+        margin:5px;
+    }
+    }
+    .heading {
+        display:flex;
+        flexdirection:row;
+        text-align: center;
+        padding-left:1rem;
+    }
+    .questions {
+    }
+    .options {
+        margin-top: 10px;
+    }
+    .option {
+        margin-top: 10px;
+    }
+    .btn-submit{
+        text-align:left;
+        margin:40px;
+
+    }
+
+{% endblock  %}

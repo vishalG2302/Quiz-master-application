@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Master Summery
+{% endblock %}
+
+{% block content %}
+    <div class="charts">
+        <div class="barchart">
+            <h5>Quiz wise top scores</h5>
+            <canvas id="Barchart"></canvas>
+        </div>
+        <div class="doughnutchart">
+            <h5>Subject wise user attempts</h5> 
+            <canvas id="unique"></canvas>
+        </div>
+        <div class="doughnutchart">
+            <h5>Chapter wise user attempts</h5>
+            <canvas id="Piechart"></canvas>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block style %}
+    <style>
+        body{      
+            background-color:rgb(238, 251, 255);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        .barchart{
+            width:50%;
+            background:rgb(204, 225, 243);
+            margin-right: 30px;
+            border-radius:25px;
+            padding:25px;
+        }
+        .doughnutchart{
+            width:30%;
+            margin-left:30px;
+            background:rgb(204, 225, 243);
+            border-radius:25px;
+            padding:25px;
+        }
+        .charts{
+            display: flex;
+            margin-top:50px;
+            margin-left:50px;
+
+        }
+    </style>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+    const barctx = document.getElementById('Barchart');
+
+
+
+    new Chart(barctx, {
+        type: 'bar',
+        data: {
+        labels: {{chapter_names|safe}},
+        datasets: [{
+            label: 'Score',
+            data: {{quiz_high.values()|list}},
+            borderWidth: 1
+        }]
+        },
+        options: {
+        indexAxis: 'y',
+        scales: {
+            x: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 1
+            }
+            }
+        }
+        }
+    });
+    
+    
+    
+    const uniqueCtx = document.getElementById('unique');
+    
+    new Chart(uniqueCtx, {
+        type: 'doughnut',
+        data: {
+            labels: {{ subject_names|safe}},
+            datasets: [{
+                label: 'users',
+                data: {{ no_of_users_sb.values() | list }},
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+    
+    const piectx = document.getElementById('Piechart');
+
+    new Chart(piectx, {
+        type: 'doughnut',
+        data: {
+        labels: {{ chapter_names|safe}},
+        datasets: [{
+            label: 'users',
+            data: {{ no_of_users_ch.values() | list }},
+            borderWidth: 1
+        }]
+        },
+        options: {
+        scales: {
+            y: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 1
+            }
+            }
+        }
+        }
+    });
+
+    </script>
+{% endblock %}

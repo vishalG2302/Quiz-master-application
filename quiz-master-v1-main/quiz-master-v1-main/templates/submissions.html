@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+{% block title %}
+    Submissions
+{% endblock %}
+{% block content %}
+
+<div class="headbar">
+    <div class="search ms-4">
+        <form class="d-flex" role="search">
+            <select name="parameter" id="parameter" class="form-select me-2">
+                {% for param in parameters %}
+                  {% if param==parameter %}
+                    <option value="{{param}}" selected>{{parameters[param]}}</option>
+                  {% else %}
+                    <option value="{{param}}">{{parameters[param]}}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            <input id="query" name="query"class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="{{query}}">
+            <button class="btn btn-outline-success" type="submit"><i class='bi bi-search'></i> Search</button>
+            <button class="btn btn-outline-danger ms-1" onclick="clearSearch()"><i class='bi bi-backspace'></i> Clear</button>
+          </form>
+    </div>
+</div>
+    <div class="submission-card">
+        <div class="card_header">
+            <h3>Submissions</h3>
+        </div>
+        <div class="table">
+            <table class="submission-table">
+                <thead>
+                    <tr>
+                        <th>user_ID</th>
+                        <th>Username</th>
+                        <th>Full name</th>
+                        <th>qualification</th>
+                        <th>Subject</th>
+                        <th>Chapter</th>
+                        <th>Score</th>
+                        <th>Submit_Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for submission in submissions %}
+                    <tr>
+                        <td>{{submission.user.id}}</td>
+                        <td>{{submission.user.username}}</td>
+                        <td>{{submission.user.fullname}}</td>
+                        <td>{{submission.user.qualification}}</td>
+                        <td>{{submission.quiz.chapter.subject.name}}</td>
+                        <td>{{submission.quiz.chapter.name}}</td>
+                        <td>{{submission.score}}/{{submission.quiz.chapter.questions|sum(attribute='point')}}</td>
+                        <td>{{submission.date}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+{% block style %}
+    <style>
+        .headbar{
+            display: flex;
+            justify-content: right;
+            background-color:rgb(166, 211, 231);
+            margin: 0px 10px 10px 10px;
+            border-radius:10px;
+        }
+    
+        .search{
+            display: flex;
+            justify-content:center;
+            padding:10px;
+            
+        }
+    
+        .form-select{
+            width:150px;
+        }
+    
+        .form-control{
+            width: 500px;;
+        }
+            .submission-card{
+                padding:15px;
+                margin:2rem;
+                background: rgba(133, 195, 224, 0.32);
+                display: flex;
+                flex-direction: column;
+                align-content:center;
+                border-radius:10px;
+            }
+
+            .submission-table{
+                width: 100%;
+                border-collapse: collapse;
+                background: white;
+            }
+            
+            .submission-table th {
+                padding: 1rem 2rem;
+                background:rgb(199, 240, 255);
+                color: #64748b;
+                font-weight: 600;
+                border-bottom: 2px solidrgb(15, 167, 55);
+        
+            }
+            
+            .submission-table td {
+                padding: 1rem 2rem;
+                background-color: #fbfbfb;
+                border-bottom: 1px solid #f1f5f9;
+                color: #475569;
+            }
+    </style>
+{% endblock %}

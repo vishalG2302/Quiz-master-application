@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block title %}
+    My Account
+{% endblock %}
+{% block content %}
+<div class="div">
+    <div class="viewquiz">
+        <div class="q_info">
+            <div class="mb-3">
+                <h2 class="cardheading">Account</h2>
+            </div>      
+            <hr>
+            <div class="mb-1">
+                <label class="form-label" for="username">Username </label>
+                <input type="text" class="form-control" id="username" name="username" value="{{user.username}}" readonly>
+            </div>
+            <div class="mb-1">
+                <label class="form-label" for="fullname">Fullname </label>
+                <input type="text" class="form-control" id="fullname" name="fullname" value="{{user.fullname}}" readonly>
+            </div>
+            <div class="mb-1">
+                <label class="form-label" for="qualification">Qualification </label>
+                <input type="text" class="form-control" id="qualification" name="qualification" value="{{user.qualification}}" readonly>
+            </div>
+            <div class="mb-1">
+                <label class="form-label" for="dob">Date of Birth</label>
+                <input type="text" class="form-control" id="dob" name="dob" value="{{user.dob}}" readonly>
+            </div>
+            <div class="action">
+                <div class="button ms-1">
+                    <a href="{{ url_for('editaccount') }}" class="btn btn-success"><i class="bi bi-pencil"></i> EDIT </a>
+                </div>
+                <div class="button ms-1">
+                    <a href="{{ url_for('user') }}" class="btn btn-danger"> Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
+{% block style %}
+<style>
+    .div{
+        width:100%;
+        display:flex;
+        justify-content: center;
+        padding :30px;
+    }
+
+    .viewquiz {
+        background-color: rgb(117, 174, 227);
+        border-radius: 25px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 40%;
+        margin: auto;
+        padding:15px;
+        border: 1px solid;
+    }
+
+    .q_info{
+        background:  rgb(117, 174, 227);
+        padding:20px;
+        border-radius:20px;
+    }
+    .cardheading {
+        text-align: center;
+    }
+
+    .action{
+        display: flex;
+    }
+    </style>
+{% endblock  %}
+
+

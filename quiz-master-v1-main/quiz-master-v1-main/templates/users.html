@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% block title %}
+    Users
+{% endblock %}
+{% block content %}
+
+    <div class="headbar">
+        <div class="search ms-4">
+            <form class="d-flex" role="search">
+                <select name="parameter" id="parameter" class="form-select me-2">
+                    {% for param in parameters %}
+                    {% if param==parameter %}
+                        <option value="{{param}}" selected>{{parameters[param]}}</option>
+                    {% else %}
+                        <option value="{{param}}">{{parameters[param]}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <input id="query" name="query"class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="{{query}}">
+                <button class="btn btn-outline-success" type="submit"><i class='bi bi-search'></i> Search</button>
+                <button class="btn btn-outline-danger ms-1" onclick="clearSearch()"><i class='bi bi-backspace'></i> Clear</button>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <div class="users-card">
+            <div class="card_header">
+                <h3>Users</h3>
+            </div>
+            <div class="table">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Full name</th>
+                            <th>qualification</th>
+                            <th>DOB</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{user.id}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.fullname}}</td>
+                            <td>{{user.qualification}}</td>
+                            <td>{{user.dob}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+{% block style %}
+    <style>
+        .headbar{
+            display: flex;
+            justify-content: right;
+            background-color:rgb(166, 211, 231);
+            margin: 0px 10px 10px 10px;
+            border-radius:10px;
+        }
+    
+        .search{
+            display: flex;
+            justify-content:center;
+            padding:10px;
+            
+        }
+    
+        .form-select{
+            width:150px;
+        }
+    
+        .form-control{
+            width: 500px;;
+        }
+            .users-card{
+                padding:15px;
+                margin:2rem;
+                background: rgba(133, 195, 224, 0.32);
+                display: flex;
+                flex-direction: column;
+                align-content:center;
+                border-radius:10px;
+            }
+
+            .user-table{
+                width: 100%;
+                border-collapse: collapse;
+                background: white;
+            }
+            
+            .user-table th {
+                padding: 1rem 2rem;
+                background:rgb(199, 240, 255);
+                color: #64748b;
+                font-weight: 600;
+                border-bottom: 2px solidrgb(15, 167, 55);
+        
+            }
+            
+            .user-table td {
+                padding: 1rem 2rem;
+                background-color: #fbfbfb;
+                border-bottom: 1px solid #f1f5f9;
+                color: #475569;
+            }
+    </style>
+{% endblock %}

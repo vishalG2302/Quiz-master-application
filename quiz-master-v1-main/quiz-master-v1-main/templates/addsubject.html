@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}
+    Add Subject
+{% endblock  %}
+{% block content %}
+    <div class="title">
+        <h2>Add subject</h2>
+    </div>
+    <form class="form"method="post">
+        <div class="mb-3">
+            <label for="subjectname" class="form-label">Subject Name</label>
+            <input type="text" class="form-control" id="subjectname" name="subjectname">
+        </div>
+        <div class="mb-3">
+            <label for="discription" class="form-label">Discription</label>
+            <input type="text" class="form-control" id="discription" name="discription">
+        </div>
+        <div class="mt-2">
+            <button type="submit" class="btn btn-primary">Add Subject</button>
+            <a href="{{ url_for('master') }}" class="btn btn-outline-danger">Close</a>
+        </div>
+    </form>
+{% endblock  %}
+{% block style  %}
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            alignitems: center;
+            width: 40%;
+            margin: auto;
+        }
+        .title{
+            display: flex;
+            justify-content:center;
+        }
+    </style>
+{% endblock  %}

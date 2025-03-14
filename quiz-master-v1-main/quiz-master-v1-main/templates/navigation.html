@@ -1,0 +1,66 @@
+<div class="navbar">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Quiz Master</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav">
+              {% if user %}
+              {% if not user.is_master %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('scores')}}">Scores</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('account')}}">Account</a>
+                  </li>
+              {% elif user.is_master %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('quiz')}}">Quiz</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('users')}}">Users</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('submit')}}">Submissions</a>
+                  </li>
+              {% endif %}    
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{url_for('summery')}}">Summery</a>
+                  </li>
+              {% else %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="/login" >Login</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/register">Register</a>
+                  </li>
+              {% endif %}
+              </ul>        
+          </div>
+          <ul class="navbar-nav -5 d-flex align-items-center">
+            {% if user %}
+            {% if not user.is_master %}
+            <li class="ms-4 me-1 ">Welcome Students</li>
+            <li class="ms-1 me-1" > | </li>
+            {% elif user.is_master %}
+            <li class="ms-4 me-1" >Welcome Master</li>
+            <li class="ms-1 me-1" > | </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link text-danger" href="{{url_for('logout')}}"> Logout</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+  </div>
+
+  <style>
+    nav{background-color: rgba(106, 181, 255,25%);
+        border-radius:5px;  
+        width:100%; 
+        margin:;
+    }
+  </style>

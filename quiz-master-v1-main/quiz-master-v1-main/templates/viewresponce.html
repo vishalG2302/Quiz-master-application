@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block title %}
+    Quiz Responce
+{% endblock %}
+{% block content %}
+
+    <div class="subject-card">  
+        
+        <table class="chapter-table">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Correct option</th>
+                    <th>Submitted option</th>
+                    <th>score</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for score in scores %}
+                <tr>
+                    <td>{{score.question.question}}</td>
+                    <td>option{{score.correct_opt}}</td>
+                    <td>{{score.submit_opt}}</td>
+                    <td>{{score.score}}</td>
+                    
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        
+        .chapter-table {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        
+        .subject-card {
+            background: white;
+            border-radius: 15px;
+            margin:30px 10px 30px 10px;
+            padding:15px;
+            background:rgba(216, 236, 255, 1);
+            border: 1px solid;
+
+        }
+        
+        .card-header {
+            padding: 1.25rem 2rem;
+            background: rgba(185, 232, 247, 0);
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chapter-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        .chapter-table th {
+            padding: 1rem 2rem;
+            background:rgb(199, 240, 255);
+            color: #64748b;
+            font-weight: 600;
+            border-bottom: 2px solidrgb(15, 167, 55);
+
+        }
+        
+        .chapter-table td {
+            padding: 1rem 2rem;
+            background-color: #fbfbfb;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+        }
+    </style>
+{% endblock %}

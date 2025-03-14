@@ -1,0 +1,160 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Master Dashboard
+{% endblock  %}
+
+{% block content %}
+    <div class="headbar-1">
+        <div class="addsubject-1">
+            <a href="{{url_for('addsubject')}}" class="btn btn-primary">Add Subject</a>
+        </div>
+        <div class="search ms-4">
+            <form class="d-flex" role="search">
+                <select name="parameter" id="parameter" class="form-select me-2">
+                    {% for param in parameters %}
+                    {% if param==parameter %}
+                        <option value="{{param}}" selected>{{parameters[param]}}</option>
+                    {% else %}
+                        <option value="{{param}}">{{parameters[param]}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <input id="query" name="query"class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="{{query}}">
+                <button class="btn btn-outline-success" type="submit"><i class='bi bi-search'></i> Search</button>
+                <button class="btn btn-outline-danger ms-1" onclick="clearSearch()"><i class='bi bi-backspace'></i> Clear</button>
+            </form>
+        </div>
+    </div>
+
+    {% for subject in subjects %}
+    
+    <div class="subject-card">  
+        <div class="card-header">
+            <div class="subject">
+                <h4>{{subject.name}}</h4>
+                <div class="action">
+                    <a href="{{url_for('editsubject', id=subject.id)}} " class="btn btn-outline-success">
+                        <i class="bi bi-pencil"></i> Edit
+                    </a>
+                    <a href="{{url_for('deletesubject', id=subject.id)}} " class="btn btn-outline-danger">
+                        <i class="bi bi-trash"></i> Delete
+                    </a>
+                </div>
+            </div>
+            <div>
+                <a href="{{url_for('addchapter',id=subject.id)}}" class="btn btn-primary">Add Chapter</a>
+            </div>
+        </div>
+        <table class="chapter-table">
+            <thead>
+                <tr>
+                    <th>Chapter Name</th>
+                    <th>No. of Questions</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for chapter in subject.chapters %}
+                <tr>
+                    <td>{{chapter.name}}</td>
+                    <td>{{chapter.questions|length}}</td>
+                    <td>
+                        <a href="{{url_for('editchapter', id=chapter.id)}}" class="btn btn-outline-success">
+                            <i class="bi bi-pencil"></i> Edit 
+                        </a>
+                        <a href="{{url_for('deletechapter', id=chapter.id)}}" class="btn btn-outline-danger">
+                            <i class="bi bi-trash"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% endfor %}
+{% endblock  %}
+{% block style %}
+<style>
+    body {
+        background-color: #ffffff;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    .headbar-1{
+        display: flex;
+        justify-content:space-between;
+        align-items:center;
+        background-color:  rgba(166, 212, 231, 0);
+        margin: 0px 10px 10px 10px;
+        padding:10px;
+        border-radius:10px;
+    }
+
+    
+    .chapter-table {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .search{
+        display: flex;
+        justify-content:center;
+        
+    }
+
+    .form-select{
+        width:150px;
+    }
+
+    .form-control{
+        width: 500px;;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        outline: none;
+    }
+    
+    .subject-card {
+        background: white;
+        border-radius: 15px;
+        margin:30px 10px 30px 10px;
+        padding:15px;
+        background:rgba(216, 236, 255, 1);
+        border: 1px solid;
+
+    }
+    
+    .card-header {
+        padding: 1.25rem 2rem;
+        background: rgba(185, 232, 247, 0);
+        border-radius: 12px 12px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .chapter-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+    }
+    
+    .chapter-table th {
+        padding: 1rem 2rem;
+        background:rgb(199, 240, 255);
+        color: #64748b;
+        font-weight: 600;
+        border-bottom: 2px solidrgb(15, 167, 55);
+
+    }
+    
+    .chapter-table td {
+        padding: 1rem 2rem;
+        background-color: #fbfbfb;
+        border-bottom: 1px solid #f1f5f9;
+        color: #475569;
+    }
+</style>
+{% endblock %}
